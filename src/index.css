@@ -1,4 +1,7 @@
-/* * {
-  background: #02050e;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #085E7D;
   color: #fff;
-} */
+}
