@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  background-color: #085e7d;
+  height: 100vh;
+}
+
+/* HEADER */
+
+.navbar {
+  color: #fff;
+}
+
+/* nav a {
+  background: #fff;
+  color: #000;
+}
+
+nav a:hover {
+  background: #000;
+  color: #fff;
+} */
+
+/* MAIN */
+
+/* FOOTER */
