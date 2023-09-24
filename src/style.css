@@ -2,18 +2,31 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: #fff;
 }
 
 main {
   background-color: #085e7d;
-  height: 100vh;
+  min-height: 100vh;
+  max-height: fit-content;
+}
+
+form {
+  margin-top: 4rem;
+}
+
+.card {
+  margin-top: 4rem;
+  height: 300px;
+  width: 200px;
+  border: 1px solid #fff;
 }
 
 /* HEADER */
 
-.navbar {
+/* .navbar {
   color: #fff;
-}
+} */
 
 /* nav a {
   background: #fff;
