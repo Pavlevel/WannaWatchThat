@@ -1,17 +1,31 @@
-import { Search2Icon, SearchIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Text,
-  Input,
-  Heading,
-  Flex,
-  IconButton,
-  Grid,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Text, Heading, Grid, Skeleton } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { getTrending } from "../services/api";
+import MediaCard from "../components/MediaCard";
+import SearchBar from "../components/SearchBar";
+import ChangePage from "../components/ChangePage";
 
 const Home = () => {
-  // const handleLogin = () => {};
+  const [media, setMedia] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getTrending(currentPage)
+      .then((res) => {
+        setMedia(res?.results);
+        setCurrentPage(res?.page);
+        setTotalPages(res?.total_pages);
+      })
+      .catch((err) => {
+        console.log(err, "error from Home useEffect");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [currentPage]);
 
   return (
     <Box py={"4"}>
@@ -21,36 +35,26 @@ const Home = () => {
       <Text textAlign={"center"}>
         The worlds most popular movie and tv shows Database!
       </Text>
-      <form>
-        <Box>
-          <Flex>
-            <Input
-              bg={"#008E89"}
-              placeholder="Search a movie or show!"
-              _placeholder={{
-                color: "#FFF",
-                textAlign: "center",
-                fontStyle: "italic",
-              }}
-              borderRightRadius={"none"}
-            ></Input>
-            <IconButton
-              bg={"#008E89"}
-              borderRight={"1px solid #FFF"}
-              borderY={"1px solid #FFF"}
-              borderLeftRadius={"none"}
-              _hover={{ backgroundColor: "#FFD32D" }}
-              icon={<SearchIcon />}
-            />
-          </Flex>
-        </Box>
-      </form>
+      <SearchBar />
       <Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"} gap={"4"}>
-        <div className="card"></div>
-        <div className="card"></div>
-        <div className="card"></div>
-        <div className="card"></div>
+        {media?.map((med) =>
+          isLoading ? (
+            <Skeleton
+              key={med?.id}
+              borderRadius={"lg"}
+              bg="blackAlpha.300"
+              height={"300px"}
+            />
+          ) : (
+            <MediaCard key={med?.id} med={med} type={med?.media_type} />
+          )
+        )}
       </Grid>
+      <ChangePage
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+      />
     </Box>
   );
 };

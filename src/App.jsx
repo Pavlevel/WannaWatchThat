@@ -6,6 +6,7 @@ import Shows from "./pages/Shows";
 import LogIn from "./pages/LogIn";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           {/* protected route - dasboard */}
           <Route path="/dashboard" element={<Dashboard />} />
           {/* protected route - dasboard */}
+          <Route path="/searchresults" element={<SearchResults />} />
         </Routes>
       </Layout>
     </BrowserRouter>
