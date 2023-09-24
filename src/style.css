@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+main {
+  background-color: #085e7d;
+  min-height: 100vh;
+  max-height: fit-content;
+}
+
+form {
+  margin-top: 4rem;
+}
+
+.card {
+  margin: 4rem 0;
+  height: fit-content;
+  width: 200px;
+  /* border: 1px solid #fff; */
+}

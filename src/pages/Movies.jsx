@@ -1,26 +1,26 @@
 import { Box, Text, Heading, Grid, Skeleton } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { getTrending } from "../services/api";
+import { getMovies } from "../services/api";
 import MediaCard from "../components/MediaCard";
 import SearchBar from "../components/SearchBar";
 import ChangePage from "../components/ChangePage";
 
-const Home = () => {
-  const [media, setMedia] = useState([]);
+const Movies = () => {
+  const [movie, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
-    getTrending(currentPage)
+    getMovies(currentPage)
       .then((res) => {
-        setMedia(res?.results);
+        setMovies(res?.results);
         setCurrentPage(res?.page);
         setTotalPages(res?.total_pages);
       })
       .catch((err) => {
-        console.log(err, "error from Home useEffect");
+        console.log(err, "error from Movies useEffect");
       })
       .finally(() => {
         setIsLoading(false);
@@ -30,23 +30,21 @@ const Home = () => {
   return (
     <Box py={"4"}>
       <Heading py={"4"} textAlign={"center"}>
-        Welcome to Wanna Watch That!
+        Movies
       </Heading>
-      <Text textAlign={"center"}>
-        The worlds most popular movie and tv shows Database!
-      </Text>
       <SearchBar />
+
       <Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"} gap={"4"}>
-        {media?.map((med) =>
+        {movie?.map((mov) =>
           isLoading ? (
             <Skeleton
-              key={med?.id}
+              key={mov?.id}
               borderRadius={"lg"}
               bg="blackAlpha.300"
               height={"300px"}
             />
           ) : (
-            <MediaCard key={med?.id} med={med} type={med?.media_type} />
+            <MediaCard key={mov?.id} med={mov} type={"movie"} />
           )
         )}
       </Grid>
@@ -59,4 +57,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Movies;
