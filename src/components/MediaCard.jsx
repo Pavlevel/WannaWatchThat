@@ -7,9 +7,10 @@ const MediaCard = ({ med, type }) => {
   return (
     <div className="card">
       <Link to={`/${type}/${med?.id}`}>
-        <Box border={'1px'} borderRadius={"lg"} bg="blackAlpha.300">
+        <Box border={"1px"} borderRadius={"lg"} bg="blackAlpha.300">
           <Image
-            src={`${posterPath}/${med?.poster_path}`}
+            src={`${posterPath}/${med?.poster_path || med?.backdrop_path}`}
+            alt={med?.title || med?.name}
             borderRadius={"lg"}
             borderBottomRadius={"none"}
             objectFit={"cover"}

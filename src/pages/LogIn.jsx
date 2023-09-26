@@ -1,7 +1,84 @@
-import React from "react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Heading,
+  Input,
+  Flex,
+  Button,
+  Text,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LogIn = () => {
-  return <div>LogIn</div>;
+  const [showPassword, setShowPassword] = useState("false");
+  return (
+    <Box py={"4"}>
+      <Heading textAlign={"center"} py={"4"}>
+        Sign up
+      </Heading>
+      <Flex flexDir={"column"} gap={"4"} align={"center"} mt={"4"}>
+        <Input
+          bg={"#008E89"}
+          maxW={"50%"}
+          name="username"
+          placeholder="Username or email"
+          _placeholder={{
+            color: "#FFF",
+            fontStyle: "italic",
+          }}
+        ></Input>
+        <InputGroup w={"50%"} justifyContent={"center"}>
+          <Input
+            bg={"#008E89"}
+            name="password"
+            type={showPassword ? "password" : "text"}
+            placeholder="Your password"
+            _placeholder={{
+              color: "#FFF",
+              fontStyle: "italic",
+            }}
+          ></Input>
+          <InputRightElement>
+            <IconButton
+              bg={"unset"}
+              onClick={(e) => {
+                setShowPassword((showPassword) => !showPassword);
+              }}
+              _hover={{ backgroundColor: "#084594", border: "1px solid #fff" }}
+              borderLeftRadius={"none"}
+              icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+            />
+          </InputRightElement>
+        </InputGroup>
+        <Flex w={"50%"} justifyContent={"space-between"} gap={"4"}>
+          <Button
+            w={"50%"}
+            bg={"#008E89"}
+            color={"white"}
+            _hover={{ backgroundColor: "#084594" }}
+            border={"1px solid #fff"}
+          >
+            Log in
+          </Button>
+          <Button w={"50%"} colorScheme="blue" border={"1px solid #fff"}>
+            Log in with Google
+          </Button>
+        </Flex>
+        <Box>
+          <Flex>
+            <Text> Not a member yet?</Text>{" "}
+            <Link to={"/register"}>
+              <Text> Register now!</Text>
+            </Link>
+          </Flex>
+        </Box>
+      </Flex>
+    </Box>
+  );
 };
 
 export default LogIn;

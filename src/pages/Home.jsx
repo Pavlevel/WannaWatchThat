@@ -1,4 +1,11 @@
-import { Box, Text, Heading, Grid, Skeleton } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Heading,
+  Grid,
+  Skeleton,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getTrending } from "../services/api";
 import MediaCard from "../components/MediaCard";
@@ -36,7 +43,8 @@ const Home = () => {
         The worlds most popular movie and tv shows Database!
       </Text>
       <SearchBar />
-      <Grid templateColumns="repeat(4, 1fr)" justifyItems={"center"} gap={"4"}>
+
+      <SimpleGrid minChildWidth={"250px"} justifyItems={"center"} gap={"4"}>
         {media?.map((med) =>
           isLoading ? (
             <Skeleton
@@ -49,7 +57,7 @@ const Home = () => {
             <MediaCard key={med?.id} med={med} type={med?.media_type} />
           )
         )}
-      </Grid>
+      </SimpleGrid>
       <ChangePage
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

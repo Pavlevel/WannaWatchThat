@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Input, Flex, IconButton, Text, Heading } from "@chakra-ui/react";
+import { Box, Input, Flex, IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
@@ -28,15 +28,14 @@ const SearchBar = () => {
             ></Input>
             <IconButton
               value={searchInput}
-              onSubmit={(e) => {
-                handleSearch(e.target.value);
+              onClick={(e) => {
                 navigate("/searchresults");
               }}
               bg={"#008E89"}
               borderRight={"1px solid #FFF"}
               borderY={"1px solid #FFF"}
               borderLeftRadius={"none"}
-              _hover={{ backgroundColor: "#FFD32D" }}
+              _hover={{ backgroundColor: "#084594" }}
               icon={<SearchIcon />}
             />
           </Flex>

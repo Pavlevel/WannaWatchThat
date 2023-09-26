@@ -7,6 +7,7 @@ import LogIn from "./pages/LogIn";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import SearchResults from "./pages/SearchResults";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           {/* protected route - dasboard */}
           <Route path="/searchresults" element={<SearchResults />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

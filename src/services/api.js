@@ -29,3 +29,10 @@ export const getMovies = async (page = 1) => {
   );
   return res?.data;
 };
+
+export const getShows = async (page = 1) => {
+  const response = await axios.get(
+    `${apiUrl}/discover/tv?api_key=${apiKey}&page=${page}`
+  );
+  return response?.data;
+};

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <Box bg={"#008E89"} py={"2"}>
       <Container maxW={"container.xl"}>
-        <Text>Footer area</Text>
+        <Text>Copyright © 2023 Pavlevel Inc. Allrights reserved </Text>
       </Container>
     </Box>
   );
