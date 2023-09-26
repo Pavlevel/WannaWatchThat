@@ -14,7 +14,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const LogIn = () => {
+  // Show Password
   const [showPassword, setShowPassword] = useState("false");
+
+  // Userdetails
+  const [usEmail, setUsEmail] = useState("");
+  const [usPassword, setUsPassword] = useState("");
+
   return (
     <Box py={"4"}>
       <Heading textAlign={"center"} py={"4"}>
@@ -22,10 +28,16 @@ const LogIn = () => {
       </Heading>
       <Flex flexDir={"column"} gap={"4"} align={"center"} mt={"4"}>
         <Input
+          autoComplete="true"
+          id="userEmail"
+          type="email"
+          value={usEmail}
+          onChange={(e) => {
+            setUsEmail(e.target.value);
+          }}
           bg={"#008E89"}
           maxW={"50%"}
-          name="username"
-          placeholder="Username or email"
+          placeholder="Your e-mail..."
           _placeholder={{
             color: "#FFF",
             fontStyle: "italic",
@@ -33,10 +45,14 @@ const LogIn = () => {
         ></Input>
         <InputGroup w={"50%"} justifyContent={"center"}>
           <Input
+            id="userPassword"
+            value={usPassword}
+            onChange={(e) => {
+              setUsPassword(e.target.value);
+            }}
             bg={"#008E89"}
-            name="password"
             type={showPassword ? "password" : "text"}
-            placeholder="Your password"
+            placeholder="Your password..."
             _placeholder={{
               color: "#FFF",
               fontStyle: "italic",
@@ -70,9 +86,11 @@ const LogIn = () => {
         </Flex>
         <Box>
           <Flex>
-            <Text> Not a member yet?</Text>{" "}
+            <Text> Not a member yet?</Text>
             <Link to={"/register"}>
-              <Text> Register now!</Text>
+              <Text color={"Highlight"} ml={"1"}>
+                Register now!
+              </Text>
             </Link>
           </Flex>
         </Box>
