@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const user = true;
   return (
     <div>
       <Box bg={"#008E89"} py={"2"}>

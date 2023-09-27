@@ -45,19 +45,29 @@ const Register = () => {
       createUserWithEmailAndPassword(auth, usEmail, usPassword)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          toast({
+            colorScheme: "teal",
+
+            position: "top",
+            title: "Yay!",
+            description: "Account created!",
+            status: "success",
+            duration: 4500,
+            isClosable: true,
+          });
         })
-        .catch((error) => console.log(error));
-      toast({
-        colorScheme: "teal",
-        
-        position: "top",
-        title: "Yay!",
-        description: "Account created!",
-        status: "success",
-        duration: 4500,
-        isClosable: true,
-      });
+        .catch((error) => {
+          const errorMessage = error.message;
+
+          toast({
+            position: "top",
+            title: "Uh-oh!",
+            description: `${errorMessage}`,
+            status: "error",
+            duration: 4500,
+            isClosable: true,
+          });
+        });
     }
   };
 
