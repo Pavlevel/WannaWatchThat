@@ -18,10 +18,10 @@ const Shows = () => {
         setShows(res?.results);
         setCurrentPage(res?.page);
         setTotalPages(res?.total_pages);
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err, "error from Movies useEffect");
+        // console.log(err, "error from Movies useEffect");
       })
       .finally(() => {
         setIsLoading(false);

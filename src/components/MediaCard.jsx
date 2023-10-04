@@ -4,6 +4,7 @@ import { posterPath } from "../services/api";
 import { Box, Image, Text } from "@chakra-ui/react";
 
 const MediaCard = ({ med, type }) => {
+ 
   return (
     <div className="card">
       <Link to={`/${type}/${med?.id}`}>

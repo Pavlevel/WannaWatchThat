@@ -27,7 +27,7 @@ const Home = () => {
         setTotalPages(res?.total_pages);
       })
       .catch((err) => {
-        console.log(err, "error from Home useEffect");
+        // console.log(err, "error from Home useEffect");
       })
       .finally(() => {
         setIsLoading(false);

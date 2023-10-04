@@ -13,11 +13,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { useAuth } from "../context/useAuth";
 
 const Register = () => {
+  const { signUpNewUser } = useAuth();
   const toast = useToast();
+  
   // Show passwords toggle
   const [showPassword, setShowPassword] = useState("false");
   const [showConfirmedPassword, setShowConfirmedPassword] = useState("false");
@@ -29,45 +30,41 @@ const Register = () => {
 
   // Authentification
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (usPassword !== usConfirmedPassword) {
+    try {
+      if (usPassword !== usConfirmedPassword) {
+        toast({
+          position: "top",
+          title: "Uh-oh!",
+          description: "Password and confirmed password are not matching",
+          status: "error",
+          duration: 4500,
+          isClosable: true,
+        });
+      } else {
+        await signUpNewUser(usEmail, usPassword);
+
+        toast({
+          colorScheme: "teal",
+          position: "top",
+          title: "Yay!",
+          description: "Account created!",
+          status: "success",
+          duration: 4500,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
       toast({
         position: "top",
         title: "Uh-oh!",
-        description: "Password and confirmed password are not matching",
+        description: error?.message,
         status: "error",
         duration: 4500,
         isClosable: true,
       });
-    } else {
-      createUserWithEmailAndPassword(auth, usEmail, usPassword)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          toast({
-            colorScheme: "teal",
-
-            position: "top",
-            title: "Yay!",
-            description: "Account created!",
-            status: "success",
-            duration: 4500,
-            isClosable: true,
-          });
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-
-          toast({
-            position: "top",
-            title: "Uh-oh!",
-            description: `${errorMessage}`,
-            status: "error",
-            duration: 4500,
-            isClosable: true,
-          });
-        });
     }
   };
 

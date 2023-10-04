@@ -1,9 +1,11 @@
-import { Box, Container, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 
 const Navbar = () => {
-  const user = true;
+  const { user, logout } = useAuth();
+
   return (
     <div>
       <Box bg={"#008E89"} py={"2"}>
@@ -17,7 +19,13 @@ const Navbar = () => {
               <Link to="/">Home</Link>
               <Link to="/movies">Movies</Link>
               <Link to="/shows">Shows</Link>
-              <Link to="/login">Log In!</Link>
+              {user ? (
+                <Button color={'#fff'} variant="link" onClick={logout}>
+                  Log out
+                </Button>
+              ) : (
+                <Link to="/login">Log In!</Link>
+              )}
             </Flex>
           </Flex>
         </Container>

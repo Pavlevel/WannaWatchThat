@@ -13,10 +13,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../context/useAuth";
 
 const LogIn = () => {
+  // Context
+  const { loginFunction, signinGoogle } = useAuth();
+
   // Utilities
   const toast = useToast();
   const navigate = useNavigate();
@@ -28,35 +30,48 @@ const LogIn = () => {
   const [usEmail, setUsEmail] = useState("");
   const [usPassword, setUsPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, usEmail, usPassword)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        navigate("/dashboard");
-        toast({
-          colorScheme: "teal",
-          position: "top",
-          title: "Welcome back!",
-          description: "Welcome back!",
-          status: "success",
-          duration: 4500,
-          isClosable: true,
-        });
-      })
-      .catch((error) => {
-        const errors = error.message;
-        console.log(errors);
-        toast({
-          position: "top",
-          title: "Uh-oh!",
-          description: `${error.message}`,
-          status: "error",
-          duration: 4500,
-          isClosable: true,
-        });
+    try {
+      await loginFunction(usEmail, usPassword);
+      navigate("/dashboard");
+      toast({
+        colorScheme: "teal",
+        position: "top",
+        title: "Welcome back!",
+        description: "Welcome back!",
+        status: "success",
+        duration: 4500,
+        isClosable: true,
       });
+    } catch (error) {
+      toast({
+        position: "top",
+        title: "Uh-oh!",
+        description: error?.message,
+        status: "error",
+        duration: 4500,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleGoogle = async () => {
+    try {
+      await signinGoogle();
+      navigate("/dashboard");
+    } catch (error) {
+      // console.log(error);
+      toast({
+        position: "top",
+        title: "Uh-oh!",
+        description: error?.message,
+        status: "error",
+        duration: 4500,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -123,7 +138,13 @@ const LogIn = () => {
             >
               Log in
             </Button>
-            <Button w={"50%"} colorScheme="blue" border={"1px solid #fff"}>
+            <Button
+              type="button"
+              onClick={handleGoogle}
+              w={"50%"}
+              colorScheme="blue"
+              border={"1px solid #fff"}
+            >
               Log in with Google
             </Button>
           </Flex>

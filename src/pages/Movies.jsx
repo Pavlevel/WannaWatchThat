@@ -20,7 +20,7 @@ const Movies = () => {
         setTotalPages(res?.total_pages);
       })
       .catch((err) => {
-        console.log(err, "error from Movies useEffect");
+        // console.log(err, "error from Movies useEffect");
       })
       .finally(() => {
         setIsLoading(false);
