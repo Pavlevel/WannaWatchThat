@@ -62,7 +62,7 @@ const Lists = () => {
             </Box>
           </TabPanel>
           <TabPanel>
-            <Heading py={"4"}>Finished watching</Heading>
+            <Heading py={"4"}>Finished watching:</Heading>
 
             <Box
               display={"block"}

@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useAuth } from "../context/useAuth";
 import Lists from "../components/Lists";
-import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const { user, logout } = useAuth();
+
+  console.log(user);
 
   return (
     <Box align={"center"}>

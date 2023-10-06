@@ -20,8 +20,10 @@ export const AuthProvider = ({ children }) => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        console.log(user);
       } else {
         navigate("/");
+        console.log(user);
       }
     });
 

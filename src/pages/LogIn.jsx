@@ -91,7 +91,7 @@ const LogIn = () => {
             }}
             bg={"#008E89"}
             maxW={"50%"}
-            placeholder="Your e-mail..."
+            placeholder="Your e-mail"
             _placeholder={{
               color: "#FFF",
               fontStyle: "italic",
@@ -106,7 +106,7 @@ const LogIn = () => {
               }}
               bg={"#008E89"}
               type={showPassword ? "password" : "text"}
-              placeholder="Your password..."
+              placeholder="Your password"
               _placeholder={{
                 color: "#FFF",
                 fontStyle: "italic",

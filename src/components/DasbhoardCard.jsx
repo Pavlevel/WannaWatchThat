@@ -3,8 +3,10 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Flex,
   Heading,
   Image,
+  SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -16,7 +18,7 @@ const DasbhoardCard = () => {
       my={"4"}
       bg={"#085E7D"}
       direction={{ base: "column", sm: "row" }}
-      width={"75%"}
+      // width={"75%"}
       overflow="hidden"
       variant="outline"
     >
@@ -38,22 +40,24 @@ const DasbhoardCard = () => {
         </CardBody>
 
         <CardFooter gap={"4"}>
-          <Button
-            border={"1px solid #fff"}
-            color={"#fff"}
-            bg={"#008E89"}
-            _hover={{ backgroundColor: "#084594", color: "#fff" }}
-          >
-            Remove from Watchlist
-          </Button>
-          <Button
-            border={"1px solid #fff"}
-            color={"#fff"}
-            bg={"#008E89"}
-            _hover={{ backgroundColor: "#084594", color: "#fff" }}
-          >
-            Watched that!
-          </Button>
+          <Flex flexDir={"column"} gap={"2"} justifyContent={"center"}>
+            <Button
+              border={"1px solid #fff"}
+              color={"#fff"}
+              bg={"#008E89"}
+              _hover={{ backgroundColor: "#084594", color: "#fff" }}
+            >
+              Remove from Watchlist
+            </Button>
+            <Button
+              border={"1px solid #fff"}
+              color={"#fff"}
+              bg={"#008E89"}
+              _hover={{ backgroundColor: "#084594", color: "#fff" }}
+            >
+              Watched that!
+            </Button>
+          </Flex>
         </CardFooter>
       </Stack>
     </Card>

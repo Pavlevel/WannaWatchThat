@@ -19,7 +19,7 @@ const BackToTopButton = () => {
         icon={<ChevronUpIcon />}
         position={"fixed"}
         bottom={"4"}
-        right={"4"}
+        right={"2"}
         border={"1px solid #fff"}
         zIndex={"1"}
         _hover={{ backgroundColor: "#084594" }}
