@@ -8,3 +8,6 @@ HTML
 CSS
 Javascript
 React
+______________________________
+
+26.9.2023. Initializing Firebase, changed several of components.
