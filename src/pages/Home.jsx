@@ -36,13 +36,12 @@ const Home = () => {
 
   return (
     <Box py={"4"}>
-      <Heading py={"4"} textAlign={"center"}>
+      <Heading as={"h1"} py={"4"} textAlign={"center"}>
         Welcome to Wanna Watch That!
       </Heading>
       <Text textAlign={"center"}>
         The worlds most popular movie and tv shows Database!
       </Text>
-      <SearchBar />
 
       <SimpleGrid minChildWidth={"250px"} justifyItems={"center"} gap={"4"}>
         {media?.map((med) =>

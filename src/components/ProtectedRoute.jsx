@@ -4,8 +4,8 @@ import { Navigate } from "react-router-dom";
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
 
-  if (user === true) {
-    return <Navigate to="/" />;
+  if (user === null) {
+    return <Navigate to="/home" />;
   }
 
   return children;

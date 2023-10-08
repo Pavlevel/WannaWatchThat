@@ -2,7 +2,6 @@ import { Box, Heading, Skeleton, SimpleGrid } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getShows } from "../services/api";
 import MediaCard from "../components/MediaCard";
-import SearchBar from "../components/SearchBar";
 import ChangePage from "../components/ChangePage";
 
 const Shows = () => {
@@ -31,12 +30,7 @@ const Shows = () => {
   return (
     <Box py={"4"}>
       <Heading py={"4"} textAlign={"center"}>
-        Shows
-      </Heading>
-      <SearchBar />
-
-      <Heading as={"h2"} py={"4"}>
-        Trending TV Shows:
+        Trending TV Shows
       </Heading>
 
       <SimpleGrid minChildWidth={"250px"} justifyItems={"center"} gap={"4"}>

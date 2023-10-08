@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         setUser(user);
         console.log(user);
       } else {
-        navigate("/");
+        // navigate("/home");
         console.log(user);
       }
     });

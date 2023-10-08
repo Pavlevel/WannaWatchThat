@@ -21,7 +21,7 @@ import {
 
 const MediaCard = ({ med }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // console.log(med);
+  console.log(med, "med");
   return (
     <div className="card">
       <Flex
@@ -38,7 +38,7 @@ const MediaCard = ({ med }) => {
               : "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg"
           }
           alt={med?.title || med?.name}
-          borderRadius={"lg"}
+          borderRadius={"md"}
           borderBottomRadius={"none"}
           objectFit={"cover"}
           w="full"
@@ -71,6 +71,9 @@ const MediaCard = ({ med }) => {
             <Heading as={"h2"} size={"md"} color={"#000"}>
               {med?.title || med?.name}
             </Heading>
+            <Text fontSize={"sm"} color={"#000"}>
+              Rating out of 10: {med?.vote_average}
+            </Text>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>

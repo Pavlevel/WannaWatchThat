@@ -1,5 +1,4 @@
 import axios from "axios";
-// import SearchBar, { query } from "../components/SearchBar";
 
 const apiUrl = "https://api.themoviedb.org/3";
 const apiSearchUrl = "https://api.themoviedb.org/3/search/multi";
@@ -18,7 +17,7 @@ export const getTrending = async (page = 1) => {
 
 // All (multi)
 
-export const getAllMedia = async (page = 1) => {
+export const getAllMedia = async (query, page = 1) => {
   const res = await axios.get(
     `${apiSearchUrl}?query=${query}&api_key=${apiKey}&page=${page}`
   );
