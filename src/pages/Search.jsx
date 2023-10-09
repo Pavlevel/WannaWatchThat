@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import MediaCard from "../components/MediaCard";
 import ChangePage from "../components/ChangePage";
-import {
-  Box,
-  SimpleGrid,
-  Skeleton,
-  Flex,
-  Input,
-  IconButton,
-  Heading,
-} from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton, Input, Heading } from "@chakra-ui/react";
 import { getAllMedia } from "../services/api";
-import { SearchIcon } from "@chakra-ui/icons";
 
 const Search = () => {
   const [media, setMedia] = useState([]);
@@ -72,6 +63,7 @@ const Search = () => {
           )
         )}
       </SimpleGrid>
+
       <ChangePage
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

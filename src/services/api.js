@@ -17,7 +17,7 @@ export const getTrending = async (page = 1) => {
 
 // All (multi)
 
-export const getAllMedia = async (query, page = 1) => {
+export const getAllMedia = async (query, page) => {
   const res = await axios.get(
     `${apiSearchUrl}?query=${query}&api_key=${apiKey}&page=${page}`
   );
@@ -35,6 +35,13 @@ export const getMovies = async (page = 1) => {
 export const getShows = async (page = 1) => {
   const response = await axios.get(
     `${apiUrl}/discover/tv?api_key=${apiKey}&page=${page}`
+  );
+  return response?.data;
+};
+
+export const getTrailer = async (type, id) => {
+  const response = await axios.get(
+    `${apiUrl}/${type}/${id}/videos?api_key=${apiKey}&language=en-US`
   );
   return response?.data;
 };

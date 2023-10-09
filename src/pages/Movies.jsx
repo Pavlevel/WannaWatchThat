@@ -2,7 +2,6 @@ import { Box, Heading, Skeleton, SimpleGrid } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getMovies } from "../services/api";
 import MediaCard from "../components/MediaCard";
-import SearchBar from "../components/SearchBar";
 import ChangePage from "../components/ChangePage";
 
 const Movies = () => {

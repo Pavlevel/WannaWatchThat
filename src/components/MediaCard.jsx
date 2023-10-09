@@ -1,10 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { posterPath } from "../services/api";
+import React, { useEffect, useState } from "react";
+import { posterPath, getTrailer } from "../services/api";
 import {
   Box,
   Button,
-  Container,
   Flex,
   Heading,
   Image,
@@ -17,11 +15,56 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import { useAuth } from "../context/useAuth";
 
-const MediaCard = ({ med }) => {
+const MediaCard = ({ med, type }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log(med, "med");
+  const [video, setVideo] = useState(null);
+  const toast = useToast();
+  const { user } = useAuth();
+
+  const id = med?.id;
+  // console.log(med);
+
+  useEffect(() => {
+    getTrailer(type, id).then((res) => {
+      const { results } = res;
+      const resolveVideoType = results?.find(
+        (movie) => movie?.type === "Trailer" && movie?.official === true
+      );
+      if (resolveVideoType) {
+        setVideo(resolveVideoType.key);
+        // console.log(resolveVideoType.key, "key");
+        // console.log(resolveVideoType, "da vidim nesto");
+      }
+    });
+  }, []);
+
+  const handleFavorite = () => {
+    if (!user) {
+      toast({
+        position: "bottom",
+        title: "Uh-oh!",
+        description: `Looks like you're not logged in! Please log in to save to your favorites.`,
+        status: "error",
+        duration: 4500,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        colorScheme: "teal",
+        position: "bottom",
+        title: "Yay!",
+        description: "Saved to favorites",
+        status: "success",
+        duration: 4500,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <div className="card">
       <Flex
@@ -35,7 +78,7 @@ const MediaCard = ({ med }) => {
           src={
             med?.poster_path || med?.backdrop_path
               ? `${posterPath}/${med?.poster_path || med?.backdrop_path}`
-              : "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg"
+              : "https://i.imgur.com/VmaMQZo.jpg"
           }
           alt={med?.title || med?.name}
           borderRadius={"md"}
@@ -71,27 +114,43 @@ const MediaCard = ({ med }) => {
             <Heading as={"h2"} size={"md"} color={"#000"}>
               {med?.title || med?.name}
             </Heading>
+            <Text mt={"2"} fontSize={"sm"} color={"#000"}>
+              Release date:{" "}
+              {med?.release_date || med?.first_air_date
+                ? new Date(
+                    med?.release_date || med?.first_air_date
+                  ).toLocaleDateString("sr-Latn-RS")
+                : "No release date available, sorry!"}
+            </Text>
             <Text fontSize={"sm"} color={"#000"}>
-              Rating out of 10: {med?.vote_average}
+              Rating: {med?.vote_average?.toFixed(2)}/10
             </Text>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <iframe
-              height="400px"
-              width="400px"
-              src={``}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            ></iframe>
-
-            <Text mt={"2"} color={"#000"}>
+          <ModalBody justifyContent={"center"}>
+            <Flex w={"full"} justifyContent={"center"}>
+              {video ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/${video}`}
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                ></iframe>
+              ) : (
+                <Image src="https://i.imgur.com/jDewYGo.png" />
+              )}
+            </Flex>
+            <Text mt={"3"} color={"#000"} textAlign={"justify"}>
               {med?.overview}
             </Text>
           </ModalBody>
 
           <ModalFooter justifyContent={"center"}>
-            <Button color={"#fff"} bg={"#008E89"} mr={3}>
+            <Button
+              color={"#fff"}
+              bg={"#008E89"}
+              mr={3}
+              onClick={handleFavorite}
+            >
               Add to favorites!
             </Button>
             <Button color={"#fff"} bg={"#084594"} onClick={onClose}>

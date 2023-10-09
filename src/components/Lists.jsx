@@ -1,16 +1,5 @@
 import React from "react";
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanel,
-  TabPanels,
-  Text,
-  Heading,
-  Flex,
-  Stack,
-  Box,
-} from "@chakra-ui/react";
+import { Tabs, TabList, Tab, TabPanel, TabPanels, Box } from "@chakra-ui/react";
 import DasbhoardCard from "./DasbhoardCard";
 
 const Lists = () => {
@@ -43,7 +32,6 @@ const Lists = () => {
 
         <TabPanels>
           <TabPanel bg={"#008E89"}>
-            <Heading py={"4"}>Watchlist:</Heading>
             <Box
               display={"block"}
               flexDir={"column"}
@@ -51,19 +39,10 @@ const Lists = () => {
               style={{ overflowY: "scroll", height: "100vh" }}
             >
               {/* MAP FUNKCIJA ZA KARTICE */}
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
               <DasbhoardCard />
             </Box>
           </TabPanel>
           <TabPanel>
-            <Heading py={"4"}>Finished watching:</Heading>
-
             <Box
               display={"block"}
               flexDir={"column"}
@@ -71,13 +50,6 @@ const Lists = () => {
               style={{ overflowY: "scroll", height: "100vh" }}
             >
               {/* MAP FUNKCIJA ZA KARTICE */}
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
               <DasbhoardCard />
             </Box>
           </TabPanel>

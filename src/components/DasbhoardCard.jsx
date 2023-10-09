@@ -6,7 +6,6 @@ import {
   Flex,
   Heading,
   Image,
-  SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -47,7 +46,7 @@ const DasbhoardCard = () => {
               bg={"#008E89"}
               _hover={{ backgroundColor: "#084594", color: "#fff" }}
             >
-              Remove from Watchlist
+              Watched that!
             </Button>
             <Button
               border={"1px solid #fff"}
@@ -55,7 +54,7 @@ const DasbhoardCard = () => {
               bg={"#008E89"}
               _hover={{ backgroundColor: "#084594", color: "#fff" }}
             >
-              Watched that!
+              Remove from Watchlist
             </Button>
           </Flex>
         </CardFooter>

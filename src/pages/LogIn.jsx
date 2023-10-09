@@ -62,6 +62,15 @@ const LogIn = () => {
     try {
       await signinGoogle();
       navigate("/dashboard");
+      toast({
+        colorScheme: "teal",
+        position: "top",
+        title: "Welcome back!",
+        description: "Welcome back!",
+        status: "success",
+        duration: 4500,
+        isClosable: true,
+      });
     } catch (error) {
       toast({
         position: "top",
@@ -83,7 +92,6 @@ const LogIn = () => {
         <Box as={"form"} onSubmit={handleLogin}>
           <Flex flexDir={"column"} gap={"4"} align={"center"} mt={"4"}>
             <Input
-             
               autoComplete="true"
               id="userEmail"
               type="email"
@@ -129,7 +137,7 @@ const LogIn = () => {
                 />
               </InputRightElement>
             </InputGroup>
-            <Flex flexDir={"column"} align={"center"} gap={"4"} w={'full'}>
+            <Flex flexDir={"column"} align={"center"} gap={"4"} w={"full"}>
               <Button
                 type="submit"
                 w={"full"}
@@ -141,7 +149,7 @@ const LogIn = () => {
                 Log in
               </Button>
               <Button
-               w={"full"}
+                w={"full"}
                 type="button"
                 onClick={handleGoogle}
                 colorScheme="blue"
