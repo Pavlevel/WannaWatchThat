@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Box, Input, Flex, IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  const navigate = useNavigate();
   const [query, setQuery] = useState("");
 
   return (

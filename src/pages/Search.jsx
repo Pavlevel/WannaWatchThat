@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import MediaCard from "../components/MediaCard";
 import ChangePage from "../components/ChangePage";
-import { Box, SimpleGrid, Skeleton, Input, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  SimpleGrid,
+  Skeleton,
+  Input,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import { getAllMedia } from "../services/api";
 
 const Search = () => {
@@ -10,6 +17,8 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [query, setQuery] = useState("");
+
+  // console.log(query);
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,12 +47,6 @@ const Search = () => {
         onChange={(e) => setQuery(e.target.value)}
         name="searchBar"
         bg={"#008E89"}
-        placeholder="Search a movie or show!"
-        _placeholder={{
-          color: "#FFF",
-          textAlign: "center",
-          fontStyle: "italic",
-        }}
         variant="unstyled"
         border={"1px solid #FFF"}
         p={"1"}
@@ -64,11 +67,17 @@ const Search = () => {
         )}
       </SimpleGrid>
 
-      <ChangePage
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
-      />
+      {query ? (
+        <ChangePage
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
+      ) : (
+        <Text mt={"4"} textAlign={"center"}>
+          The results will appear here as soon as you start typing 😊
+        </Text>
+      )}
     </Box>
   );
 };

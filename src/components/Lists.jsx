@@ -1,8 +1,48 @@
-import React from "react";
-import { Tabs, TabList, Tab, TabPanel, TabPanels, Box } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/useAuth";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  TabPanels,
+  Box,
+  Text,
+} from "@chakra-ui/react";
 import DasbhoardCard from "./DasbhoardCard";
+import { db } from "../firebase";
+import { getDocs, collection, doc, query } from "firebase/firestore";
 
 const Lists = () => {
+  const { user, uid } = useAuth();
+  const [watchlist, setWatchList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  console.log(watchlist);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    const userFavoritesCollection = collection(db, "favorites");
+    const userDocRef = doc(userFavoritesCollection, uid);
+    const favoritesCol = collection(userDocRef, "UserFavorites");
+    const favouritesQuery = query(favoritesCol);
+    // console.log(favouritesQuery, "favorites query");
+
+    getDocs(favouritesQuery)
+      .then((querySnapshot) => {
+        const media = [];
+        querySnapshot?.forEach((med) => {
+          media.push(med?.data());
+        });
+        setWatchList(media);
+      })
+      .catch((err) => {
+        console.log(err, "Error from firebase");
+      });
+  }, [user, uid]);
+
   return (
     <>
       <Tabs
@@ -36,10 +76,15 @@ const Lists = () => {
               display={"block"}
               flexDir={"column"}
               align={"center"}
-              style={{ overflowY: "scroll", height: "100vh" }}
+              style={{
+                overflowY: "scroll",
+                maxHeight: "100vh",
+                minHeight: "fit-content",
+              }}
             >
-              {/* MAP FUNKCIJA ZA KARTICE */}
-              <DasbhoardCard />
+              {watchlist?.map((watch) => {
+                return <DasbhoardCard key={watch?.id} watchitem={watch} />;
+              })}
             </Box>
           </TabPanel>
           <TabPanel>

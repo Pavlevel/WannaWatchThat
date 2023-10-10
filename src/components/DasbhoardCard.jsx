@@ -10,14 +10,51 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { useAuth } from "../context/useAuth";
 
-const DasbhoardCard = () => {
+const DasbhoardCard = ({ watchitem }) => {
+  const { user, uid } = useAuth();
+  // console.log(whatchlist);
+
+  const removeFromWatchList = async (movieID) => {
+    try {
+      if (!user) {
+        console.log("No user found!");
+        // throw new Error("No user found!");
+      }
+
+      const userFavouritesCollection = collection(
+        db,
+        "favorites",
+        uid,
+        "UserFavorites"
+      );
+      const movieDocRef = doc(userFavouritesCollection, movieID);
+      await deleteDoc(movieDocRef);
+      toast({
+        title: "Success",
+        description: "Movie removed from watch list.",
+        status: "success",
+        duration: 4500,
+        position: "top",
+        isClosable: true,
+      });
+
+      const filterWatchlist = whatchlist?.filter(
+        (movie) => movie?.id?.toString() !== movieID?.toString()
+      );
+      setWatchlist(filterWatchlist);
+    } catch (error) {
+      console.log(error, "error removing movie from wathclist");
+    }
+  };
   return (
     <Card
       my={"4"}
+      p={"4"}
       bg={"#085E7D"}
       direction={{ base: "column", sm: "row" }}
-      // width={"75%"}
+      maxW={"75%"}
       overflow="hidden"
       variant="outline"
     >
@@ -30,12 +67,13 @@ const DasbhoardCard = () => {
 
       <Stack bg={"#085E7D"}>
         <CardBody>
-          <Heading size="md">The perfect latte</Heading>
+          <Heading size="md">
+            {watchitem
+              ? watchitem?.title || watchitem?.original_title
+              : "Henlo"}
+          </Heading>
 
-          <Text py="2">
-            Caffè latte is a coffee beverage of Italian origin made with
-            espresso and steamed milk.
-          </Text>
+          <Text py="2">{watchitem ? watchitem?.overview : "Fren"}</Text>
         </CardBody>
 
         <CardFooter gap={"4"}>
@@ -49,6 +87,7 @@ const DasbhoardCard = () => {
               Watched that!
             </Button>
             <Button
+              onClick={removeFromWatchList}
               border={"1px solid #fff"}
               color={"#fff"}
               bg={"#008E89"}

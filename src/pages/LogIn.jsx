@@ -100,7 +100,6 @@ const LogIn = () => {
                 setUsEmail(e.target.value);
               }}
               bg={"#008E89"}
-              // maxW={"50%"}
               placeholder="Your e-mail"
               _placeholder={{
                 color: "#FFF",

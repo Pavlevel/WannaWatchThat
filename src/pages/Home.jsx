@@ -26,9 +26,7 @@ const Home = () => {
         setCurrentPage(res?.page);
         setTotalPages(res?.total_pages);
       })
-      .catch((err) => {
-        // console.log(err, "error from Home useEffect");
-      })
+      .catch((err) => {})
       .finally(() => {
         setIsLoading(false);
       });
@@ -39,7 +37,7 @@ const Home = () => {
       <Heading as={"h1"} py={"4"} textAlign={"center"}>
         Welcome to Wanna Watch That!
       </Heading>
-      <Text textAlign={"center"}>
+      <Text textAlign={"center"} mb={"4"}>
         The worlds most popular movie and tv shows Database!
       </Text>
 
