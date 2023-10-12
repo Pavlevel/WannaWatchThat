@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { getTrending } from "../services/api";
 import MediaCard from "../components/MediaCard";
-import SearchBar from "../components/SearchBar";
 import ChangePage from "../components/ChangePage";
 
 const Home = () => {

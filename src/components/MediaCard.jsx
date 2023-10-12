@@ -48,6 +48,7 @@ const MediaCard = ({ med, type }) => {
     // console.log(media?.id, "media", uid, 'UID');
     try {
       if (!user) {
+        // toast stavi
       }
       const userDocRef = doc(userFavoritesCollection, uid);
       const favoritesCol = collection(userDocRef, "UserFavorites");
