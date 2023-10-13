@@ -69,6 +69,7 @@ const MediaCard = ({ med, type }) => {
         await setDoc(mediaDoc, media);
         setIsInWatchList(true);
         toast({
+          colorScheme: 'teal',
           position: "bottom",
           title: "Yay!",
           description: "Saved to watchlist",

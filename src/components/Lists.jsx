@@ -54,6 +54,7 @@ const Lists = () => {
       const mediaDocRef = doc(favoritesCol, MediaID);
       await deleteDoc(mediaDocRef);
       toast({
+        colorScheme: 'teal',
         title: "Success",
         description: "Movie removed from watch list.",
         status: "success",
