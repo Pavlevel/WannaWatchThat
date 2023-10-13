@@ -48,6 +48,7 @@ const Register = () => {
         await signUpNewUser(usEmail, usPassword);
 
         toast({
+          colorScheme: "teal",
           position: "top",
           title: "Yay!",
           description: "Account created!",
