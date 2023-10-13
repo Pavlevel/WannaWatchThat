@@ -46,7 +46,9 @@ const UserWatchedCard = ({ watcheditem }) => {
               : "Henlo"}
           </Heading>
 
-          <Text py="2">{watcheditem ? watcheditem?.overview : "Fren"}</Text>
+          <Text py="2" textAlign={"justify"}>
+            {watcheditem?.overview}
+          </Text>
         </CardBody>
 
         <CardFooter gap={"4"}>

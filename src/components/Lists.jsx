@@ -63,7 +63,7 @@ const Lists = () => {
       });
 
       const filterWatchlist = watchlist?.filter(
-        (wat) => wat?.id?.toString() !== wat?.toString()
+        (wat) => wat?.id?.toString() !== MediaID?.toString()
       );
       setWatchList(filterWatchlist);
     } catch (error) {
@@ -99,23 +99,19 @@ const Lists = () => {
         });
       } else {
         await setDoc(mediaDoc, watchitem);
-        removeFromWatchList(() => watchitem?.id?.toString());
-        toast({
-          colorScheme: "teal",
-          position: "bottom",
-          title: "Yay!",
-          description: "Saved to watchlist",
-          status: "success",
-          duration: 4500,
-          isClosable: true,
-        });
+
+        removeFromWatchList(watchitem?.id?.toString());
+        // const filteredWatchedlist = watched?.filter(
+        //   (wat) => wat?.id?.toString() !== watchitem?.id?.toString()
+        // );
+
+        // setWatched(filteredWatchedlist);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  // useeffect koji prati i azurira listu odgledanih stvari
   useEffect(() => {
     if (!user) {
     }
@@ -135,7 +131,6 @@ const Lists = () => {
       });
   }, [user, uid]);
 
-  // useeffect koji prati i azurira listu stvari za gledanje
   useEffect(() => {
     if (!user) {
     }
@@ -213,7 +208,11 @@ const Lists = () => {
               display={"block"}
               flexDir={"column"}
               align={"center"}
-              style={{ overflowY: "scroll", height: "100vh" }}
+              style={{
+                overflowY: "scroll",
+                maxHeight: "100vh",
+                minHeight: "fit-content",
+              }}
             >
               {watched?.map((wat) => (
                 <UserWatchedCard key={wat?.id} watcheditem={wat} />

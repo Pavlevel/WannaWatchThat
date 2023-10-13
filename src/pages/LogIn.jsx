@@ -38,7 +38,6 @@ const LogIn = () => {
       await loginFunction(usEmail, usPassword);
       navigate("/dashboard");
       toast({
-        colorScheme: "teal",
         position: "top",
         title: "Welcome back!",
         description: "Welcome back!",
@@ -63,7 +62,6 @@ const LogIn = () => {
       await signinGoogle();
       navigate("/dashboard");
       toast({
-        colorScheme: "teal",
         position: "top",
         title: "Welcome back!",
         description: "Welcome back!",

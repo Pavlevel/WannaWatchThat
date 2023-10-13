@@ -69,7 +69,6 @@ const MediaCard = ({ med, type }) => {
         await setDoc(mediaDoc, media);
         setIsInWatchList(true);
         toast({
-          colorScheme: "teal",
           position: "bottom",
           title: "Yay!",
           description: "Saved to watchlist",
@@ -140,12 +139,12 @@ const MediaCard = ({ med, type }) => {
 
       <Modal size={"xl"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent p={"1"}>
-          <ModalHeader color={"#000"}>
-            <Heading as={"h2"} size={"md"} color={"#000"}>
+        <ModalContent bg={"#085e7d"} p={"1"} border={"1px solid #fff"}>
+          <ModalHeader>
+            <Heading as={"h2"} size={"md"}>
               {med?.title || med?.name}
             </Heading>
-            <Text mt={"2"} fontSize={"sm"} color={"#000"}>
+            <Text mt={"2"} fontSize={"sm"}>
               Release date:{" "}
               {med?.release_date || med?.first_air_date
                 ? new Date(
@@ -153,7 +152,7 @@ const MediaCard = ({ med, type }) => {
                   ).toLocaleDateString("sr-Latn-RS")
                 : "No release date available, sorry!"}
             </Text>
-            <Text fontSize={"sm"} color={"#000"}>
+            <Text fontSize={"sm"}>
               Rating: {med?.vote_average?.toFixed(2)}/10
             </Text>
           </ModalHeader>
@@ -170,13 +169,14 @@ const MediaCard = ({ med, type }) => {
                 <Image src="https://i.imgur.com/jDewYGo.png" />
               )}
             </Flex>
-            <Text mt={"3"} color={"#000"} textAlign={"justify"}>
+            <Text mt={"3"} textAlign={"justify"}>
               {med?.overview}
             </Text>
           </ModalBody>
 
           <ModalFooter justifyContent={"center"}>
             <Button
+              border={"1px solid #fff"}
               isDisabled={isInWatchList === true}
               color={"#fff"}
               bg={"#008E89"}
@@ -189,6 +189,7 @@ const MediaCard = ({ med, type }) => {
               {isInWatchList ? "In Watchlist" : "Add To Watchlist"}
             </Button>
             <Button
+              border={"1px solid #fff"}
               color={"#fff"}
               bg={"#008E89"}
               _hover={{
