@@ -43,7 +43,7 @@ const LogIn = () => {
         title: "Welcome back!",
         description: "Welcome back!",
         status: "success",
-        duration: 4500,
+        duration: 2000,
         isClosable: true,
       });
     } catch (error) {
@@ -52,7 +52,7 @@ const LogIn = () => {
         title: "Uh-oh!",
         description: error?.message,
         status: "error",
-        duration: 4500,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -68,7 +68,7 @@ const LogIn = () => {
         title: "Welcome back!",
         description: "Welcome back!",
         status: "success",
-        duration: 4500,
+        duration: 2000,
         isClosable: true,
       });
     } catch (error) {
@@ -77,7 +77,7 @@ const LogIn = () => {
         title: "Uh-oh!",
         description: error?.message,
         status: "error",
-        duration: 4500,
+        duration: 2000,
         isClosable: true,
       });
     }

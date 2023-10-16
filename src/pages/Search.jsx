@@ -13,15 +13,11 @@ import { getAllMedia } from "../services/api";
 
 const Search = () => {
   const [media, setMedia] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [query, setQuery] = useState("");
 
-  // console.log(query);
-
   useEffect(() => {
-    setIsLoading(true);
     getAllMedia(query, currentPage)
       .then((res) => {
         setMedia(res?.results);
@@ -30,9 +26,6 @@ const Search = () => {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   }, [query, currentPage]);
 
@@ -53,18 +46,9 @@ const Search = () => {
       ></Input>
 
       <SimpleGrid minChildWidth={"250px"} justifyItems={"center"} gap={"4"}>
-        {media?.map((med) =>
-          isLoading ? (
-            <Skeleton
-              key={med?.id}
-              borderRadius={"lg"}
-              bg="blackAlpha.300"
-              height={"300px"}
-            />
-          ) : (
-            <MediaCard key={med?.id} med={med} type={med?.media_type} />
-          )
-        )}
+        {media?.map((med) => (
+          <MediaCard key={med?.id} med={med} type={med?.media_type} />
+        ))}
       </SimpleGrid>
 
       {query ? (

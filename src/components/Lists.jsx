@@ -24,22 +24,16 @@ import {
 
 const Lists = () => {
   const toast = useToast();
-  // const [isLoading, setIsLoading] = useState(false);
+
   const { user, uid } = useAuth();
 
-  // usestate za listu stvari za gledanje
   const [watchlist, setWatchList] = useState([]);
 
-  // usestate za odgledane stvari
   const [watched, setWatched] = useState([]);
-
-  // putanja za stvari za gledanje
 
   const userFavoritesCollection = collection(db, "favorites");
   const userfDocRef = doc(userFavoritesCollection, uid);
   const favoritesCol = collection(userfDocRef, "UserFavorites");
-
-  // globalna putanja za odgledane stvari
 
   const doneWatching = collection(db, "doneWatching");
   const userDocRef = doc(doneWatching, uid);
@@ -54,11 +48,11 @@ const Lists = () => {
       const mediaDocRef = doc(favoritesCol, MediaID);
       await deleteDoc(mediaDocRef);
       toast({
-        colorScheme: 'teal',
+        colorScheme: "teal",
         title: "Success",
         description: "Movie removed from watch list.",
         status: "success",
-        duration: 4500,
+        duration: 2000,
         position: "top",
         isClosable: true,
       });
@@ -81,7 +75,7 @@ const Lists = () => {
           title: "Uh-oh!",
           description: `An error occured, please try logging in`,
           status: "error",
-          duration: 4500,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -95,21 +89,30 @@ const Lists = () => {
           title: "Uh-oh!",
           description: `Already in your favorites`,
           status: "error",
-          duration: 4500,
+          duration: 2000,
           isClosable: true,
         });
       } else {
         await setDoc(mediaDoc, watchitem);
 
         removeFromWatchList(watchitem?.id?.toString());
-        // const filteredWatchedlist = watched?.filter(
-        //   (wat) => wat?.id?.toString() !== watchitem?.id?.toString()
-        // );
-
-        // setWatched(filteredWatchedlist);
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      const watchedQuery = query(userWatched);
+
+      getDocs(watchedQuery)
+        .then((querySnapshot) => {
+          const media = [];
+          querySnapshot?.forEach((med) => {
+            media.push(med?.data());
+          });
+          setWatched(media);
+        })
+        .catch((err) => {
+          console.log(err, "Error from firebase za odgledane");
+        });
     }
   };
 

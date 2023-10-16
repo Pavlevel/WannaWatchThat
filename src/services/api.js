@@ -22,7 +22,6 @@ export const getAllMedia = async (query, page) => {
     `${apiSearchUrl}?query=${query}&api_key=${apiKey}&page=${page}`
   );
   return res?.data;
-  // return console.log(res.data);
 };
 
 export const getMovies = async (page = 1) => {

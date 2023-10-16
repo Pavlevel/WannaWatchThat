@@ -41,7 +41,7 @@ const Register = () => {
           title: "Uh-oh!",
           description: "Password and confirmed password are not matching",
           status: "error",
-          duration: 4500,
+          duration: 2000,
           isClosable: true,
         });
       } else {
@@ -53,7 +53,7 @@ const Register = () => {
           title: "Yay!",
           description: "Account created!",
           status: "success",
-          duration: 4500,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -63,7 +63,7 @@ const Register = () => {
         title: "Uh-oh!",
         description: error?.message,
         status: "error",
-        duration: 4500,
+        duration: 2000,
         isClosable: true,
       });
     }

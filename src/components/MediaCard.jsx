@@ -35,20 +35,20 @@ const MediaCard = ({ med, type }) => {
   useEffect(() => {
     getTrailer(type, id).then((res) => {
       const { results } = res;
+      // console.log(results);
       const resolveVideoType = results?.find(
-        (movie) => movie?.type === "Trailer" && movie?.official === true
+        (movie) => movie?.type === "Trailer"
       );
       if (resolveVideoType) {
         setVideo(resolveVideoType.key);
       }
     });
+    console.log();
   }, []);
 
   const addFavoriteMedia = async (media) => {
-    // console.log(media?.id, "media", uid, 'UID');
     try {
       if (!user) {
-        // toast stavi
       }
       const userDocRef = doc(userFavoritesCollection, uid);
       const favoritesCol = collection(userDocRef, "UserFavorites");
@@ -62,19 +62,19 @@ const MediaCard = ({ med, type }) => {
           title: "Uh-oh!",
           description: `Already in your favorites`,
           status: "error",
-          duration: 4500,
+          duration: 2000,
           isClosable: true,
         });
       } else {
         await setDoc(mediaDoc, media);
         setIsInWatchList(true);
         toast({
-          colorScheme: 'teal',
+          colorScheme: "teal",
           position: "bottom",
           title: "Yay!",
           description: "Saved to watchlist",
           status: "success",
-          duration: 4500,
+          duration: 2000,
           isClosable: true,
         });
       }
@@ -88,7 +88,7 @@ const MediaCard = ({ med, type }) => {
         title: "Uh-oh!",
         description: `Please log in to save to your favorites.`,
         status: "error",
-        duration: 4500,
+        duration: 2000,
         isClosable: true,
       });
     } else {
@@ -171,7 +171,9 @@ const MediaCard = ({ med, type }) => {
               )}
             </Flex>
             <Text mt={"3"} textAlign={"justify"}>
-              {med?.overview}
+              {med?.overview
+                ? med?.overview
+                : "Sorry, it seems that we do not have a description of this show :("}
             </Text>
           </ModalBody>
 

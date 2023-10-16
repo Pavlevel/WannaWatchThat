@@ -1,4 +1,4 @@
-import { Box, Heading, Skeleton, SimpleGrid } from "@chakra-ui/react";
+import { Box, Heading, Skeleton, SimpleGrid, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getShows } from "../services/api";
 import MediaCard from "../components/MediaCard";
@@ -17,11 +17,9 @@ const Shows = () => {
         setShows(res?.results);
         setCurrentPage(res?.page);
         setTotalPages(res?.total_pages);
-        // console.log(res);
+        // console.log(res?.results);
       })
-      .catch((err) => {
-        // console.log(err, "error from Movies useEffect");
-      })
+      .catch((err) => {})
       .finally(() => {
         setIsLoading(false);
       });
@@ -36,12 +34,7 @@ const Shows = () => {
       <SimpleGrid minChildWidth={"250px"} justifyItems={"center"} gap={"4"}>
         {shows?.map((show) =>
           isLoading ? (
-            <Skeleton
-              key={show?.id}
-              borderRadius={"lg"}
-              bg="blackAlpha.300"
-              height={"300px"}
-            />
+            <Spinner size="lg" />
           ) : (
             <MediaCard key={show?.id} med={show} type={"tv"} />
           )
