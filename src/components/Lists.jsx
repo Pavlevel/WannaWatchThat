@@ -1,19 +1,160 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/useAuth";
 import {
   Tabs,
   TabList,
   Tab,
   TabPanel,
   TabPanels,
-  Text,
-  Heading,
-  Flex,
-  Stack,
   Box,
+  useToast,
 } from "@chakra-ui/react";
-import DasbhoardCard from "./DasbhoardCard";
+import UserFavoriteCard from "./UserFavoriteCard";
+import UserWatchedCard from "./UserWatchedCard";
+import { db } from "../firebase";
+import {
+  getDoc,
+  collection,
+  doc,
+  query,
+  setDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 
 const Lists = () => {
+  const toast = useToast();
+
+  const { user, uid } = useAuth();
+
+  const [watchlist, setWatchList] = useState([]);
+
+  const [watched, setWatched] = useState([]);
+
+  const userFavoritesCollection = collection(db, "favorites");
+  const userfDocRef = doc(userFavoritesCollection, uid);
+  const favoritesCol = collection(userfDocRef, "UserFavorites");
+
+  const doneWatching = collection(db, "doneWatching");
+  const userDocRef = doc(doneWatching, uid);
+  const userWatched = collection(userDocRef, "UserWatched");
+
+  const removeFromWatchList = async (MediaID) => {
+    try {
+      if (!user) {
+        console.log("No user found!");
+      }
+
+      const mediaDocRef = doc(favoritesCol, MediaID);
+      await deleteDoc(mediaDocRef);
+      toast({
+        colorScheme: "teal",
+        title: "Success",
+        description: "Movie removed from watch list.",
+        status: "success",
+        duration: 2000,
+        position: "top",
+        isClosable: true,
+      });
+
+      const filterWatchlist = watchlist?.filter(
+        (wat) => wat?.id?.toString() !== MediaID?.toString()
+      );
+      setWatchList(filterWatchlist);
+    } catch (error) {
+      console.log(error, "error removing movie from watchlist");
+    }
+  };
+
+  // funkcija za prebacivanje stvari u odgledano
+  const addWatchedMedia = async (watchitem) => {
+    try {
+      if (!user) {
+        toast({
+          position: "error",
+          title: "Uh-oh!",
+          description: `An error occured, please try logging in`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+
+      const mediaDoc = doc(userWatched, watchitem?.id?.toString());
+
+      const docSnap = await getDoc(mediaDoc);
+      if (docSnap.exists()) {
+        toast({
+          position: "error",
+          title: "Uh-oh!",
+          description: `Already in your favorites`,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        await setDoc(mediaDoc, watchitem);
+
+        removeFromWatchList(watchitem?.id?.toString());
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      const watchedQuery = query(userWatched);
+
+      getDocs(watchedQuery)
+        .then((querySnapshot) => {
+          const media = [];
+          querySnapshot?.forEach((med) => {
+            media.push(med?.data());
+          });
+          setWatched(media);
+        })
+        .catch((err) => {
+          console.log(err, "Error from firebase za odgledane");
+        });
+    }
+  };
+
+  useEffect(() => {
+    if (!user) {
+    }
+
+    const watchedQuery = query(userWatched);
+
+    getDocs(watchedQuery)
+      .then((querySnapshot) => {
+        const media = [];
+        querySnapshot?.forEach((med) => {
+          media.push(med?.data());
+        });
+        setWatched(media);
+      })
+      .catch((err) => {
+        console.log(err, "Error from firebase za odgledane");
+      });
+  }, [user, uid]);
+
+  useEffect(() => {
+    if (!user) {
+    }
+    // putanja za listu za stvari za gledanje
+
+    const favouritesQuery = query(favoritesCol);
+
+    getDocs(favouritesQuery)
+      .then((querySnapshot) => {
+        const media = [];
+        querySnapshot?.forEach((med) => {
+          media.push(med?.data());
+        });
+        setWatchList(media);
+      })
+      .catch((err) => {
+        console.log(err, "Error from firebase za odgledane");
+      });
+  }, [user, uid]);
+
   return (
     <>
       <Tabs
@@ -43,42 +184,43 @@ const Lists = () => {
 
         <TabPanels>
           <TabPanel bg={"#008E89"}>
-            <Heading py={"4"}>Watchlist:</Heading>
             <Box
               display={"block"}
               flexDir={"column"}
               align={"center"}
-              style={{ overflowY: "scroll", height: "100vh" }}
+              style={{
+                overflowY: "scroll",
+                maxHeight: "100vh",
+                minHeight: "fit-content",
+              }}
             >
-              {/* MAP FUNKCIJA ZA KARTICE */}
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
+              {watchlist?.map((watch) => {
+                return (
+                  <UserFavoriteCard
+                    key={watch?.id}
+                    watchitem={watch}
+                    addWatchedMedia={addWatchedMedia}
+                    removeFromWatchList={removeFromWatchList}
+                    watchlist={watchlist}
+                  />
+                );
+              })}
             </Box>
           </TabPanel>
           <TabPanel>
-            <Heading py={"4"}>Finished watching:</Heading>
-
             <Box
               display={"block"}
               flexDir={"column"}
               align={"center"}
-              style={{ overflowY: "scroll", height: "100vh" }}
+              style={{
+                overflowY: "scroll",
+                maxHeight: "100vh",
+                minHeight: "fit-content",
+              }}
             >
-              {/* MAP FUNKCIJA ZA KARTICE */}
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
-              <DasbhoardCard />
+              {watched?.map((wat) => (
+                <UserWatchedCard key={wat?.id} watcheditem={wat} />
+              ))}
             </Box>
           </TabPanel>
         </TabPanels>

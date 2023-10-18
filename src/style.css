@@ -11,17 +11,18 @@ main {
   max-height: fit-content;
 }
 
-form {
-  margin-top: 4rem;
-}
-
-.card {
-  margin: 4rem 0;
-  height: fit-content;
-  width: 200px;
-  /* border: 1px solid #fff; */
+iframe{
+  height: 400px;
+  width: inherit;
+  border-radius: 15px;
 }
 
 footer {
   margin-top: 10px;
+}
+
+.card {
+  margin: 1rem 0;
+  height: fit-content;
+  width: 200px;
 }

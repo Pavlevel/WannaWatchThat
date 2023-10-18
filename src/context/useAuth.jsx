@@ -15,16 +15,23 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [uid, setUid] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        console.log(user);
+        setUid(user?.uid);
+        // console.log(user, uid, "user i uid");
       } else {
-        navigate("/");
-        console.log(user);
+        // navigate("/home");
+        // console.log(user);
+        setUser(null);
+        setUid(null);
       }
+
+      setIsLoading(false);
     });
 
     return () => {
@@ -51,7 +58,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signUpNewUser, loginFunction, logout, signinGoogle, user }}
+      value={{
+        signUpNewUser,
+        loginFunction,
+        logout,
+        signinGoogle,
+        user,
+        uid,
+        isLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

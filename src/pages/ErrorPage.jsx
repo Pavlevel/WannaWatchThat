@@ -18,7 +18,7 @@ const ErrorPage = () => {
         <Text>The page you were looking for doesn't exist.</Text>
         <Button
           onClick={(e) => {
-            navigate("/");
+            navigate("/home");
           }}
           bg={"#008E89"}
           w={"25%"}

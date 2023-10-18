@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { getTrending } from "../services/api";
 import MediaCard from "../components/MediaCard";
-import SearchBar from "../components/SearchBar";
 import ChangePage from "../components/ChangePage";
 
 const Home = () => {
@@ -26,9 +25,7 @@ const Home = () => {
         setCurrentPage(res?.page);
         setTotalPages(res?.total_pages);
       })
-      .catch((err) => {
-        // console.log(err, "error from Home useEffect");
-      })
+      .catch((err) => {})
       .finally(() => {
         setIsLoading(false);
       });
@@ -36,13 +33,12 @@ const Home = () => {
 
   return (
     <Box py={"4"}>
-      <Heading py={"4"} textAlign={"center"}>
+      <Heading as={"h1"} py={"4"} textAlign={"center"}>
         Welcome to Wanna Watch That!
       </Heading>
-      <Text textAlign={"center"}>
+      <Text textAlign={"center"} mb={"4"}>
         The worlds most popular movie and tv shows Database!
       </Text>
-      <SearchBar />
 
       <SimpleGrid minChildWidth={"250px"} justifyItems={"center"} gap={"4"}>
         {media?.map((med) =>

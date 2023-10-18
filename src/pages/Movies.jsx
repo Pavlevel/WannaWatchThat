@@ -2,7 +2,6 @@ import { Box, Heading, Skeleton, SimpleGrid } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getMovies } from "../services/api";
 import MediaCard from "../components/MediaCard";
-import SearchBar from "../components/SearchBar";
 import ChangePage from "../components/ChangePage";
 
 const Movies = () => {
@@ -19,9 +18,7 @@ const Movies = () => {
         setCurrentPage(res?.page);
         setTotalPages(res?.total_pages);
       })
-      .catch((err) => {
-        // console.log(err, "error from Movies useEffect");
-      })
+      .catch((err) => {})
       .finally(() => {
         setIsLoading(false);
       });
@@ -30,11 +27,6 @@ const Movies = () => {
   return (
     <Box py={"4"}>
       <Heading as={"h1"} py={"4"} textAlign={"center"}>
-        Movies
-      </Heading>
-      <SearchBar />
-
-      <Heading as={"h2"} py={"4"}>
         Trending Movies:
       </Heading>
 

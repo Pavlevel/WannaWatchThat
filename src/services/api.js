@@ -1,5 +1,4 @@
 import axios from "axios";
-// import SearchBar, { query } from "../components/SearchBar";
 
 const apiUrl = "https://api.themoviedb.org/3";
 const apiSearchUrl = "https://api.themoviedb.org/3/search/multi";
@@ -18,12 +17,11 @@ export const getTrending = async (page = 1) => {
 
 // All (multi)
 
-export const getAllMedia = async (page = 1) => {
+export const getAllMedia = async (query, page) => {
   const res = await axios.get(
     `${apiSearchUrl}?query=${query}&api_key=${apiKey}&page=${page}`
   );
   return res?.data;
-  // return console.log(res.data);
 };
 
 export const getMovies = async (page = 1) => {
@@ -36,6 +34,13 @@ export const getMovies = async (page = 1) => {
 export const getShows = async (page = 1) => {
   const response = await axios.get(
     `${apiUrl}/discover/tv?api_key=${apiKey}&page=${page}`
+  );
+  return response?.data;
+};
+
+export const getTrailer = async (type, id) => {
+  const response = await axios.get(
+    `${apiUrl}/${type}/${id}/videos?api_key=${apiKey}&language=en-US`
   );
   return response?.data;
 };
