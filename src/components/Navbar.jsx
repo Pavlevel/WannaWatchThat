@@ -116,7 +116,7 @@ const Navbar = () => {
                 </MenuList>
               </Menu>{" "}
             </Show>
-            <Show above="md">
+            <Show above="sm">
               <Flex align={"center"} gap={"3"}>
                 <Link to="/home">Home</Link>
                 <Menu>
