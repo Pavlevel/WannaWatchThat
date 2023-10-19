@@ -24,7 +24,7 @@ const Navbar = () => {
       <Box bg={"#008E89"} py={"2"}>
         <Container className="navbar" maxW={"container.xl"}>
           <Flex justifyContent={"space-between"} alignItems={"center"}>
-            <Link to="/home">
+            <Link to="/">
               <Heading mr={"4"} as={"h1"}>
                 WWT?
               </Heading>
@@ -46,7 +46,7 @@ const Navbar = () => {
                 )}
 
                 <MenuList bg={"#008E89"}>
-                  <Link to="/home">
+                  <Link to="/">
                     <MenuItem
                       bg={"#008E89"}
                       _hover={{ backgroundColor: "#084594" }}
@@ -118,7 +118,7 @@ const Navbar = () => {
             </Show>
             <Show above="sm">
               <Flex align={"center"} gap={"3"}>
-                <Link to="/home">Home</Link>
+                <Link to="/">Home</Link>
                 <Menu>
                   <MenuButton>Start watching!</MenuButton>
                   <MenuList bg={"#008E89"}>

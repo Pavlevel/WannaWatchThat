@@ -13,12 +13,12 @@ const ErrorPage = () => {
         justify={"center"}
         h={"100vh"}
       >
-        <Heading as={"h3"}>Uh oh, ooks like you got lost!</Heading>
+        <Heading as={"h3"}>Ops, looks like you got lost!</Heading>
 
         <Text>The page you were looking for doesn't exist.</Text>
         <Button
           onClick={(e) => {
-            navigate("/home");
+            navigate("/");
           }}
           bg={"#008E89"}
           w={"25%"}

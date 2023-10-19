@@ -23,10 +23,7 @@ export const AuthProvider = ({ children }) => {
       if (user) {
         setUser(user);
         setUid(user?.uid);
-        // console.log(user, uid, "user i uid");
       } else {
-        // navigate("/home");
-        // console.log(user);
         setUser(null);
         setUid(null);
       }
