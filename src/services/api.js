@@ -40,7 +40,8 @@ export const getShows = async (page = 1) => {
 
 export const getTrailer = async (type, id) => {
   const response = await axios.get(
-    `${apiUrl}/${type}/${id}/videos?api_key=${apiKey}&language=en-US`
+    `${apiUrl}/${type}/${id}/videos?api_key=${apiKey}&language=en-US`,
+    { validateStatus: false }
   );
   return response?.data;
 };

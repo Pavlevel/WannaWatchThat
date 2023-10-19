@@ -119,7 +119,7 @@ const MediaCard = ({ med, type }) => {
           height={"300px"}
         />
         <Box p="2">
-          <Text fontSize="sm" textAlign="center">
+          <Text fontSize="sm" textAlign="center" noOfLines={1}>
             {med?.title || med?.name}
           </Text>
         </Box>
