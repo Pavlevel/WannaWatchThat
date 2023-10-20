@@ -16,8 +16,11 @@ const Dashboard = () => {
       >
         <Box w={"full"}>
           <Heading as={"h2"}>Welcome to Dashboard!</Heading>
-          <Text as={"p"}>
-            Welcome to your dashboard {user.displayName}! Here you can See what movies you've set in your watchlist and you can also see movies w
+          <Text as={"p"} mt={"4"}>
+            Welcome to your dashboard{" "}
+            {user.displayName ? user.displayName : "Watcher"}! Here you can See
+            what movies you've set in your watchlist and you can also see movies
+            that you previosly watched.
           </Text>
         </Box>
       </Flex>

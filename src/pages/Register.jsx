@@ -13,12 +13,13 @@ import {
   useToast,
   Container,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 
 const Register = () => {
   const { signUpNewUser } = useAuth();
   const toast = useToast();
+  const navigate = useNavigate();
 
   // Show passwords toggle
   const [showPassword, setShowPassword] = useState("false");
@@ -66,6 +67,8 @@ const Register = () => {
         duration: 2000,
         isClosable: true,
       });
+    } finally {
+      navigate("/dashboard");
     }
   };
 
