@@ -36,5 +36,4 @@ My thanks goes first and foremost to my mentor Stefan Djikic, as well as to my c
 
 Finally, for all her support throught the entire duration of the course as well as making this graduation app, I would like to thank my wife, Dragana Velickovic. Without her, I am pretty sure this wouldn't have been possible.
 
-
-Test
+2024 update
